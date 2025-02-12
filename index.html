@@ -1953,57 +1953,32 @@ body {
           </div>
         </div>
     
-    <div class="heart-container" id="heartContainer"></div>
-    <div class="flower-container" id="flowerContainer">
-        <img class="flower" src="C:\Users\kianc\OneDrive\Desktop\Vaalentines\bouquet.png" alt="Flower">
-    </div>
+<script>
+// Run on resize
+window.addEventListener("resize", adjustLayout);
+document.addEventListener("DOMContentLoaded", adjustLayout); // Adjust on page load
 
-    <div class="heart-container"></div>
-    <audio id="loveSong" src="New Project (1).mp3"></audio>
-    <audio id="music1" src="music.mp3"></audio>
-    <div class="video-container" id="videoContainer">
-        <video id="video" loop>
-            <source src="476816036_9173512966102835_2796168084793194771_n (1).mp4" type="video/mp4">
-        </video>
-    </div>
-    
-    <div class="container">
-        <div class="envelope">
-            <div class="flap"></div>
-            <div class="click-me" onclick="startCountdown()">Click to open</div>
-            <div class="countdown" id="countdown"></div>
-            <div class="letter">
-                <p id="letterText"></p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-     // Adjust layout dynamically for mobile devices
 function adjustLayout() {
-    if (window.innerWidth <= 768) { // Mobile devices
-        document.body.style.fontSize = "16px";
-        document.body.style.padding = "10px";
-        document.body.style.backgroundColor = "#f0f0f0";
+    let container = document.querySelector('.container');
+    let countdown = document.getElementById('countdown');
+    let letterText = document.getElementById('letterText');
+    let heartContainer = document.getElementById('heartContainer');
 
-        // Adjust video size for mobile
-        let videoContainer = document.getElementById("videoContainer");
-        let video = document.getElementById("video");
-        videoContainer.style.width = "200px";
-        video.style.width = "100%";
-
-    } else { // Larger screens
-        document.body.style.fontSize = "20px";
-        document.body.style.padding = "20px";
-        document.body.style.backgroundColor = "#ffffff";
+    if (window.innerWidth <= 768) {  // Mobile adjustments
+        container.style.width = "90vw";
+        container.style.fontSize = "14px";
+        countdown.style.fontSize = "20px";
+        letterText.style.fontSize = "12px";
+        heartContainer.style.fontSize = "16px";
+    } else {  // Desktop adjustments
+        container.style.width = "60vw";
+        container.style.fontSize = "18px";
+        countdown.style.fontSize = "28px";
+        letterText.style.fontSize = "16px";
+        heartContainer.style.fontSize = "20px";
     }
 }
 
-// Call adjustLayout on load and resize
-window.onload = adjustLayout;
-window.onresize = adjustLayout;
-
-// Function to reload page or start animations
 function bloomFlower() {
     if (document.body.classList.contains('not-loaded')) {
         document.body.classList.remove("not-loaded");
@@ -2013,12 +1988,10 @@ function bloomFlower() {
     }
 }
 
-// Countdown before opening envelope
 function startCountdown() {
     document.querySelector('.click-me').style.display = 'none';
     let countdownElement = document.getElementById('countdown');
     countdownElement.style.display = 'block';
-
     let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
     let i = 0;
 
@@ -2035,34 +2008,26 @@ function startCountdown() {
     updateCountdown();
 }
 
-// Open envelope and play video/audio
 function openEnvelope() {
     let container = document.querySelector('.container');
     let videoContainer = document.getElementById('videoContainer');
     let video = document.getElementById('video');
+
     let loveSong = document.getElementById('loveSong');
     let music1 = document.getElementById('music1');
 
-    // Ensure audio and video only play after user interaction
-    document.body.addEventListener("click", function () {
-        video.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
-        loveSong.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
-        music1.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
-    }, { once: true });
-
-    // If not already opened
     if (!container.classList.contains('open')) {
         container.classList.add('open');
         setTimeout(startHeartFlow, 500);
         setTimeout(typeLetter, 500);
         videoContainer.style.opacity = "1";
-
-        // Start video playback
         video.play();
+
+        loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
+        music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
     }
 }
 
-// Create floating hearts animation
 function startHeartFlow() {
     setInterval(createHeart, 200);
 }
@@ -2077,23 +2042,17 @@ function createHeart() {
     setTimeout(() => heart.remove(), 6000);
 }
 
-// Typing animation for the letter
 function typeLetter() {
-    let text = `Bossing,
-
-Grabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.
-
-Alam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.
-
-Tiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.
-
-Maraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.
-
-From: Your Bossing K`;
-
+    let text =  "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
     let letterDiv = document.getElementById("letterText");
     letterDiv.innerHTML = "";
     let charIndex = 0;
+
+    let loveSong = document.getElementById('loveSong');
+    let music1 = document.getElementById('music1');
+
+    loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
+    music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
 
     function typeChar() {
         if (charIndex < text.length) {
@@ -2102,7 +2061,6 @@ From: Your Bossing K`;
             setTimeout(typeChar, 50);
         }
     }
-
     typeChar();
 }
 
