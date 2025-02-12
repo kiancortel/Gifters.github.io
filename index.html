@@ -6,16 +6,12 @@
     <title>Floating Love Letter Envelope</title>
     <style>
 
-/* Default Styles (Mobile) */
-/* Default Styles (Mobile) */
-/* Default Styles (Mobile) */
 .container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: absolute;
+    top: 30%;
     transform: translate(-50%, -50%);
-    width: 300px; /* Adjusted for mobile */
-    height: 150px; /* Adjusted for mobile */
+    width: 600px; /* Adjusted size */
+    height: 200px; /* Adjusted size */
     cursor: pointer;
     animation: float 3s ease-in-out infinite;
 }
@@ -24,109 +20,90 @@
     width: 100%;
     height: 100%;
     background: #ff4d6d;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 10px rgba(255, 0, 76, 0.6);
+    box-shadow: 0 0 15px rgba(255, 0, 76, 0.6);
     animation: glowPulse 2s infinite ease-in-out;
 }
+
 
 /* Glow and pulse animation */
 @keyframes glowPulse {
     0% {
-        box-shadow: 0 0 10px rgba(255, 0, 76, 0.6), 0 0 20px rgba(255, 0, 76, 0.8), 0 0 30px rgba(255, 0, 76, 1);
+        box-shadow: 0 0 15px rgba(255, 0, 76, 0.6), 0 0 30px rgba(255, 0, 76, 0.8), 0 0 45px rgba(255, 0, 76, 1);
         transform: scale(1);
     }
     50% {
-        box-shadow: 0 0 20px rgba(255, 0, 76, 0.8), 0 0 40px rgba(255, 0, 76, 1), 0 0 60px rgba(255, 0, 76, 1);
-        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 0, 76, 0.8), 0 0 60px rgba(255, 0, 76, 1), 0 0 90px rgba(255, 0, 76, 1);
+        transform: scale(1.05); /* Slight scale for pulsing effect */
     }
     100% {
-        box-shadow: 0 0 10px rgba(255, 0, 76, 0.6), 0 0 20px rgba(255, 0, 76, 0.8), 0 0 30px rgba(255, 0, 76, 1);
+        box-shadow: 0 0 15px rgba(255, 0, 76, 0.6), 0 0 30px rgba(255, 0, 76, 0.8), 0 0 45px rgba(255, 0, 76, 1);
         transform: scale(1);
     }
 }
-
-.flap {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 50%;
-    background: #ff758f;
-    border-radius: 15px 15px 0 0;
-    transform-origin: top;
-    transition: transform 0.6s ease-in-out;
-}
-
-.letter {
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50%;
+            background: #ff758f;
+            border-radius: 20px 20px 0 0;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+        }
+        .letter {
     position: absolute;
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     top: 100%;
-    border-radius: 25px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(255, 182, 193, 0.3), 
-                0px 10px 20px rgba(255, 105, 180, 0.4), 
-                inset 0px 0px 8px rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    padding: 30px;
+    box-shadow: 
+        0px 4px 8px rgba(255, 182, 193, 0.3), 
+        0px 10px 20px rgba(255, 105, 180, 0.4), 
+        inset 0px 0px 12px rgba(255, 255, 255, 0.6);
     transition: top 0.8s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
-    max-height: 200px;
-    font-size: 14px; /* Increased for readability */
-    line-height: 1.5; /* Improved spacing */
+    max-height: 300px;
+    font-size: 13px;
     text-align: center;
     color: #8b0000;
     font-family: 'Dancing Script', cursive;
     border: 2px solid rgba(255, 182, 193, 0.5);
-    transform: perspective(500px) rotateX(8deg);
+    transform: perspective(600px) rotateX(8deg);
     animation: glow 3s ease-in-out infinite, float 4s ease-in-out infinite;
 }
 
 @keyframes glow {
     0%, 100% {
-        box-shadow: 0px 3px 8px rgba(255, 182, 193, 0.4);
+        box-shadow: 0px 4px 10px rgba(255, 182, 193, 0.4);
     }
     50% {
-        box-shadow: 0px 5px 15px rgba(255, 105, 180, 0.6);
+        box-shadow: 0px 6px 20px rgba(255, 105, 180, 0.6);
     }
 }
 
 @keyframes float {
     0%, 100% {
-        transform: translateY(0) perspective(500px) rotateX(8deg);
+        transform: translateY(0) perspective(600px) rotateX(8deg);
     }
     50% {
-        transform: translateY(-8px) perspective(500px) rotateX(5deg);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 400px) {
-    .container {
-        width: 250px;
-        height: 130px;
-    }
-    .letter {
-        font-size: 13px; /* Adjusted for readability on smaller screens */
-        padding: 15px;
+        transform: translateY(-10px) perspective(600px) rotateX(5deg);
     }
 }
 
 
-/* Responsive Design */
-@media (max-width: 400px) {
-    .container {
-        width: 250px;
-        height: 130px;
-    }
-    .letter {
-        font-size: 11px;
-        padding: 15px;
-    }
+/* Floating Effect */
+@keyframes float {
+    0% { transform: perspective(600px) rotateX(10deg) translateY(0); }
+    50% { transform: perspective(600px) rotateX(10deg) translateY(-10px); }
+    100% { transform: perspective(600px) rotateX(10deg) translateY(0); }
 }
-
 
 .open .flap {
     transform: perspective(600px) rotateX(180deg);
@@ -1922,8 +1899,8 @@ body {
     </div>
 
     <div class="heart-container"></div>
-    <audio id="loveSong" src="C:\Users\kianc\OneDrive\Desktop\Gift\New Project (1).mp3"></audio>
-    <audio id="music1" src="C:\Users\kianc\OneDrive\Desktop\Gift\music.mp3"></audio>
+    <audio id="loveSong" src="New Project (1).mp3"></audio>
+    <audio id="music1" src="music.mp3"></audio>
     <div class="video-container" id="videoContainer">
         <video id="video" loop>
             <source src="476816036_9173512966102835_2796168084793194771_n (1).mp4" type="video/mp4">
