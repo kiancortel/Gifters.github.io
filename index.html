@@ -57,11 +57,11 @@
         }
         .letter {
     position: absolute;
-    width: 90%;
-    height: auto;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     top: 100%;
-    border-radius: 15px;
+    border-radius: 50px;
     padding: 30px;
     box-shadow: 
         0px 4px 8px rgba(255, 182, 193, 0.3), 
@@ -70,7 +70,7 @@
     transition: top 0.8s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
     max-height: 300px;
-    font-size: 20px;
+    font-size: 13px;
     text-align: center;
     color: #8b0000;
     font-family: 'Dancing Script', cursive;
@@ -1938,34 +1938,20 @@ body {
             setInterval(createHeart, 200);
         }
     
- let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. na appreciate ko lahat ng effort mo lalo na sa pag update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
-        let sentences = text.split(/\.(?!\d)|\?|!/); 
+  let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. na appreciate ko lahat ng effort mo lalo na sa pag update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
+        let sentences = text.split(/\.(?!\d)|\?|!/); // Split text by sentence-ending punctuation (., ?, !)
         
         function speakSentence(sentence) {
             const utterance = new SpeechSynthesisUtterance(sentence);
-            utterance.lang = "fil-PH";  
-            utterance.pitch = 1.5;  
-            utterance.rate = 0.9;  
-            utterance.volume = 1;  
+            utterance.lang = "fil-PH";  // Set the language to Filipino (Tagalog)
+            utterance.pitch = 1.5;  // Adjusted pitch for a more expressive tone
+            utterance.rate = 0.9;  // Slightly slower rate for better pacing
+            utterance.volume = 1;  // Max volume
             let voices = speechSynthesis.getVoices();
-            utterance.voice = voices.find(voice => voice.name === "Google Filipino"); 
+            utterance.voice = voices.find(voice => voice.name === "Google Filipino"); // Choose Filipino voice if available
             speechSynthesis.speak(utterance);
         }
-    
-// Ensure voices are loaded before speaking
-function speakText() {
-    speechSynthesis.onvoiceschanged = () => {
-        for (let sentence of sentences) {
-            speakSentence(sentence.trim());
-        }
-    };
-    speechSynthesis.getVoices(); // Trigger voice loading
-}
-
-// Call the function to start speaking
-speakText();
-
-    
+                                                            
         function typeLetter() {
             let letterDiv = document.getElementById("letterText");
             letterDiv.innerHTML = ""; // Clear the content before typing a new sentence
