@@ -7,8 +7,10 @@
     <style>
 
 /* Default Styles (Mobile) */
+/* Default Styles (Mobile) */
+/* Default Styles (Mobile) */
 .container {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -72,7 +74,8 @@
     transition: top 0.8s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
     max-height: 200px;
-    font-size: 12px;
+    font-size: 14px; /* Increased for readability */
+    line-height: 1.5; /* Improved spacing */
     text-align: center;
     color: #8b0000;
     font-family: 'Dancing Script', cursive;
@@ -98,6 +101,19 @@
         transform: translateY(-8px) perspective(500px) rotateX(5deg);
     }
 }
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .container {
+        width: 250px;
+        height: 130px;
+    }
+    .letter {
+        font-size: 13px; /* Adjusted for readability on smaller screens */
+        padding: 15px;
+    }
+}
+
 
 /* Responsive Design */
 @media (max-width: 400px) {
@@ -1906,8 +1922,8 @@ body {
     </div>
 
     <div class="heart-container"></div>
-    <audio id="loveSong" src="New Project (1).mp3"></audio>
-    <audio id="music1" src="music.mp3"></audio>
+    <audio id="loveSong" src="C:\Users\kianc\OneDrive\Desktop\Gift\New Project (1).mp3"></audio>
+    <audio id="music1" src="C:\Users\kianc\OneDrive\Desktop\Gift\music.mp3"></audio>
     <div class="video-container" id="videoContainer">
         <video id="video" loop>
             <source src="476816036_9173512966102835_2796168084793194771_n (1).mp4" type="video/mp4">
