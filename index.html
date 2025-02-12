@@ -184,8 +184,8 @@
     top: 23%;
     left: 50%;
     transform: translateX(-50%) perspective(800px) translateZ(30px);
-    width: 100px;
-    height: 100px;
+    width: 120px; /* Slightly bigger default size */
+    height: 120px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 
@@ -225,6 +225,24 @@
     box-shadow: 
         0px 0px 25px rgba(255, 0, 76, 1),
         inset 0px 0px 15px rgba(255, 255, 255, 0.8);
+}
+
+/* 📱 Mobile Adjustments */
+@media (max-width: 768px) {
+    .video-container {
+        width: 90px;
+        height: 90px;
+        top: 18%;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        width: 75px;
+        height: 75px;
+        top: 15%;
+        animation: none; /* Disable floating for ultra-small screens if necessary */
+    }
 }
 
 .heart-container {
@@ -2046,7 +2064,7 @@ function createHeart() {
 
 // Typing animation for the letter
 function typeLetter() {
-    let text = `Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo...`;
+    let text =  "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
 
     let letterDiv = document.getElementById("letterText");
     letterDiv.innerHTML = "";
