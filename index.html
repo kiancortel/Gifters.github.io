@@ -55,28 +55,49 @@
             transform-origin: top;
             transition: transform 0.6s ease-in-out;
         }
-        .letter {
+.letter {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: auto;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     top: 100%;
-    border-radius: 50px;
-    padding: 30px;
+    border-radius: 30px;
+    padding: 20px;
     box-shadow: 
         0px 4px 8px rgba(255, 182, 193, 0.3), 
         0px 10px 20px rgba(255, 105, 180, 0.4), 
         inset 0px 0px 12px rgba(255, 255, 255, 0.6);
     transition: top 0.8s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
-    max-height: 300px;
-    font-size: 13px;
+    max-height: 250px;
+    font-size: 12px;
     text-align: center;
     color: #8b0000;
     font-family: 'Dancing Script', cursive;
     border: 2px solid rgba(255, 182, 193, 0.5);
     transform: perspective(600px) rotateX(8deg);
     animation: glow 3s ease-in-out infinite, float 4s ease-in-out infinite;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .letter {
+        width: 95%;
+        padding: 15px;
+        font-size: 11px;
+        border-radius: 20px;
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .letter {
+        width: 100%;
+        padding: 10px;
+        font-size: 10px;
+        border-radius: 15px;
+        max-height: 180px;
+    }
 }
 
 @keyframes glow {
@@ -97,13 +118,6 @@
     }
 }
 
-
-/* Floating Effect */
-@keyframes float {
-    0% { transform: perspective(600px) rotateX(10deg) translateY(0); }
-    50% { transform: perspective(600px) rotateX(10deg) translateY(-10px); }
-    100% { transform: perspective(600px) rotateX(10deg) translateY(0); }
-}
 
 .open .flap {
     transform: perspective(600px) rotateX(180deg);
@@ -331,41 +345,69 @@ body {
   transform: translate(-50%, -50%) perspective(500px) rotateX(10deg);
   
   font-size: 45px;
-  color: #ea5959; /* Bright Red */
+  color: #ea5959;
   z-index: 999;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
-  text-align: center; /* Ensures text alignment */
+  text-align: center;
+  width: 100%;
   
-  /* Multi-layered text-shadow for glow & depth */
   text-shadow: 
     0 0 10px rgba(255, 0, 0, 0.8), 
     0 0 20px rgba(255, 0, 0, 0.6), 
     0 0 30px rgba(255, 0, 0, 0.5), 
-    3px 3px 5px rgba(0, 0, 0, 0.6); /* 3D Depth */
+    3px 3px 5px rgba(0, 0, 0, 0.6);
 
-  /* Optional: Add a glowing effect */
   filter: drop-shadow(0px 0px 10px rgba(255, 0, 0, 0.8));
-
-  width: 100%; /* Ensure full width in portrait mode */
 }
 
-
-
+/* Button styling */
 .reloadBtn {
   position: absolute;
   top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 999;
-  padding: 8px 30px;
-  font-size: 18px;
+  padding: 10px 35px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background-color: #ff4d4d;
+  color: white;
+  transition: 0.3s;
 }
 
 .reloadBtn:hover {
   background-color: #ea0e0e;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .title {
+    font-size: 35px; /* Reduce font size */
+    top: 5%; /* Adjust position */
+  }
+
+  .reloadBtn {
+    top: 80px; /* Bring button closer */
+    padding: 8px 25px; /* Adjust padding */
+    font-size: 14px; /* Reduce font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+    top: 4%;
+  }
+
+  .reloadBtn {
+    top: 70px;
+    padding: 7px 20px;
+    font-size: 13px;
+  }
 }
 
 .night {
@@ -1919,107 +1961,114 @@ body {
     </div>
 
     <script>
-         function adjustLayout() {
-    if (window.innerWidth <= 768) { // Adjust for phone screens
+      // Adjust layout dynamically for mobile devices
+function adjustLayout() {
+    if (window.innerWidth <= 768) { // Mobile devices
         document.body.style.fontSize = "16px";
         document.body.style.padding = "10px";
         document.body.style.backgroundColor = "#f0f0f0";
-    } else { // Adjust for larger screens
+    } else { // Larger screens
         document.body.style.fontSize = "20px";
         document.body.style.padding = "20px";
         document.body.style.backgroundColor = "#ffffff";
     }
 }
-// Run on load
-adjustLayout();
-      function bloomFlower() {
-          if (document.body.classList.contains('not-loaded')) {
-              document.body.classList.remove("not-loaded");
-              document.querySelector('.reloadBtn').textContent = 'Reload Page';
-          } else {
-            location.reload();
-          }
-      }
+window.onload = adjustLayout; // Run on page load
 
-         function startCountdown() {
-        document.querySelector('.click-me').style.display = 'none';
-        let countdownElement = document.getElementById('countdown');
-        countdownElement.style.display = 'block';
-        let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
-        let i = 0;
-
-        function updateCountdown() {
-            if (i < countdownNumbers.length) {
-                countdownElement.innerHTML = countdownNumbers[i];
-                i++;
-                setTimeout(updateCountdown, 1000);
-            } else {
-                countdownElement.style.display = 'none';
-                openEnvelope();
-            }
-        }
-        updateCountdown();
+// Reload page or remove 'not-loaded' class
+function bloomFlower() {
+    if (document.body.classList.contains('not-loaded')) {
+        document.body.classList.remove("not-loaded");
+        document.querySelector('.reloadBtn').textContent = 'Reload Page';
+    } else {
+        location.reload();
     }
+}
 
-    function openEnvelope() {
-        let container = document.querySelector('.container');
-        let videoContainer = document.getElementById('videoContainer');
-        let video = document.getElementById('video');
+// Start countdown and show animation
+function startCountdown() {
+    document.querySelector('.click-me').style.display = 'none';
+    let countdownElement = document.getElementById('countdown');
+    countdownElement.style.display = 'block';
+    
+    let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
+    let i = 0;
 
-        // Get both audio elements
-        let loveSong = document.getElementById('loveSong');
-        let music1 = document.getElementById('music1');
-
-        if (!container.classList.contains('open')) {
-            container.classList.add('open');
-            setTimeout(startHeartFlow, 500); // Start floating hearts
-            setTimeout(typeLetter, 500); // Start typing the letter text
-            videoContainer.style.opacity = "1";
-            video.play();
-
-            // Play both music files
-            loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
-            music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
+    function updateCountdown() {
+        if (i < countdownNumbers.length) {
+            countdownElement.innerHTML = countdownNumbers[i];
+            i++;
+            setTimeout(updateCountdown, 1000);
+        } else {
+            countdownElement.style.display = 'none';
+            openEnvelope();
         }
     }
+    updateCountdown();
+}
 
-    function startHeartFlow() {
-        setInterval(createHeart, 200);
+// Open envelope and play video/audio
+function openEnvelope() {
+    let container = document.querySelector('.container');
+    let videoContainer = document.getElementById('videoContainer');
+    let video = document.getElementById('video');
+    let loveSong = document.getElementById('loveSong');
+    let music1 = document.getElementById('music1');
+
+    // Check if already open
+    if (!container.classList.contains('open')) {
+        container.classList.add('open');
+        setTimeout(startHeartFlow, 500);
+        setTimeout(typeLetter, 500);
+        videoContainer.style.opacity = "1";
+
+        // Play video & audio after user interaction
+        video.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
+        loveSong.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
+        music1.play().catch(error => console.log("Autoplay blocked, waiting for user action."));
     }
+}
 
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-        document.getElementById("heartContainer").appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-    }
+// Create floating hearts
+function startHeartFlow() {
+    setInterval(createHeart, 200);
+}
 
-    function typeLetter() {
-        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+    document.getElementById("heartContainer").appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
 
-        let letterDiv = document.getElementById("letterText");
-        letterDiv.innerHTML = "";
-        let charIndex = 0;
+// Typing animation for the letter
+function typeLetter() {
+    let text = `Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo...`;
 
-        // Get both audio elements
-        let loveSong = document.getElementById('loveSong');
-        let music1 = document.getElementById('music1');
+    let letterDiv = document.getElementById("letterText");
+    letterDiv.innerHTML = "";
+    let charIndex = 0;
 
-        // Start playing both music files when typing begins
-        loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
-        music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
+    // Ensure audio plays when user interacts
+    let loveSong = document.getElementById('loveSong');
+    let music1 = document.getElementById('music1');
 
-        function typeChar() {
-            if (charIndex < text.length) {
-                letterDiv.innerHTML += text.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeChar, 50); // Typing speed
-            }
+    function typeChar() {
+        if (charIndex < text.length) {
+            letterDiv.innerHTML += text.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeChar, 50);
         }
-        typeChar();
     }
-    </script>
-</body>
+
+    // Wait for user interaction before playing audio
+    document.body.addEventListener("click", function () {
+        loveSong.play().catch(error => console.log("Audio playback blocked."));
+        music1.play().catch(error => console.log("Audio playback blocked."));
+    }, { once: true });
+
+    typeChar();
+}
