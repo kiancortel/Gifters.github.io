@@ -1938,19 +1938,53 @@ body {
             setInterval(createHeart, 200);
         }
     
-        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. na appreciate ko lahat ng effort mo lalo na sa pag update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
-        let sentences = text.split(/\.(?!\d)|\?|!/); // Split text by sentence-ending punctuation (., ?, !)
-        
-        function speakSentence(sentence) {
-            const utterance = new SpeechSynthesisUtterance(sentence);
-            utterance.lang = "fil-PH";  // Set the language to Filipino (Tagalog)
-            utterance.pitch = 1.5;  // Adjusted pitch for a more expressive tone
-            utterance.rate = 0.9;  // Slightly slower rate for better pacing
-            utterance.volume = 1;  // Max volume
-            let voices = speechSynthesis.getVoices();
-            utterance.voice = voices.find(voice => voice.name === "Google Filipino"); // Choose Filipino voice if available
-            speechSynthesis.speak(utterance);
+       let text = `Bossing,
+
+Grabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.
+
+Alam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.
+
+Tiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.
+
+Maraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.
+
+From: Your Bossing K`;
+
+let sentences = text.split(/(\.|\?|!)/g); // Split text while keeping punctuation
+
+function speakSentence(sentence) {
+    const utterance = new SpeechSynthesisUtterance(sentence);
+    utterance.lang = "fil-PH"; // Set the language to Filipino (Tagalog)
+    utterance.pitch = 1.2; // Slightly higher pitch
+    utterance.rate = 0.9; // Slightly slower rate
+    utterance.volume = 1; // Max volume
+
+    // Wait for voices to be available
+    let voices = speechSynthesis.getVoices();
+    let filipinoVoice = voices.find(voice => voice.lang.startsWith("fil") || voice.name.includes("Tagalog"));
+
+    if (filipinoVoice) {
+        utterance.voice = filipinoVoice;
+    } else {
+        console.warn("Filipino voice not found! Using default voice.");
+    }
+
+    speechSynthesis.speak(utterance);
+}
+
+// Ensure voices are loaded before speaking
+function speakText() {
+    speechSynthesis.onvoiceschanged = () => {
+        for (let sentence of sentences) {
+            speakSentence(sentence.trim());
         }
+    };
+    speechSynthesis.getVoices(); // Trigger voice loading
+}
+
+// Call the function to start speaking
+speakText();
+
     
         function typeLetter() {
             let letterDiv = document.getElementById("letterText");
