@@ -57,11 +57,11 @@
         }
         .letter {
     position: absolute;
-    width: 90%;
-    height: auto;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     top: 100%;
-    border-radius: 15px;
+    border-radius: 50px;
     padding: 30px;
     box-shadow: 
         0px 4px 8px rgba(255, 182, 193, 0.3), 
@@ -70,7 +70,7 @@
     transition: top 0.8s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
     max-height: 300px;
-    font-size: 20px;
+    font-size: 13px;
     text-align: center;
     color: #8b0000;
     font-family: 'Dancing Script', cursive;
@@ -1899,7 +1899,8 @@ body {
     </div>
 
     <div class="heart-container"></div>
-    <audio id="loveSong" src="C:\Users\kianc\OneDrive\Desktop\Gift\music.mp3"></audio>
+    <audio id="loveSong" src="C:\Users\kianc\OneDrive\Desktop\Gift\New Project (1).mp3"></audio>
+    <audio id="music1" src="C:\Users\kianc\OneDrive\Desktop\Gift\music.mp3"></audio>
     <div class="video-container" id="videoContainer">
         <video id="video" loop>
             <source src="C:\Users\kianc\OneDrive\Desktop\Gift\476816036_9173512966102835_2796168084793194771_n (1).mp4" type="video/mp4">
@@ -1928,98 +1929,85 @@ body {
           }
       }
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-            document.getElementById("heartContainer").appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-    
-        function startHeartFlow() {
-            setInterval(createHeart, 200);
-        }
-    
-        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. na appreciate ko lahat ng effort mo lalo na sa pag update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
-        let sentences = text.split(/\.(?!\d)|\?|!/); // Split text by sentence-ending punctuation (., ?, !)
-        
-        function speakSentence(sentence) {
-            const utterance = new SpeechSynthesisUtterance(sentence);
-            utterance.lang = "fil-PH";  // Set the language to Filipino (Tagalog)
-            utterance.pitch = 1.5;  // Adjusted pitch for a more expressive tone
-            utterance.rate = 0.9;  // Slightly slower rate for better pacing
-            utterance.volume = 1;  // Max volume
-            let voices = speechSynthesis.getVoices();
-            utterance.voice = voices.find(voice => voice.name === "Google Filipino"); // Choose Filipino voice if available
-            speechSynthesis.speak(utterance);
-        }
-    
-        function typeLetter() {
-            let letterDiv = document.getElementById("letterText");
-            letterDiv.innerHTML = ""; // Clear the content before typing a new sentence
-    
-            let sentenceIndex = 0;
-    
-            function typeSentence() {
-                if (sentenceIndex < sentences.length) {
-                    let sentence = sentences[sentenceIndex];
-                    let charIndex = 0;
-                    
-                    function typeChar() {
-                        if (charIndex < sentence.length) {
-                            letterDiv.innerHTML += sentence.charAt(charIndex);
-                            charIndex++;
-                            setTimeout(typeChar, 50); // Type next character after a delay
-                        } else {
-                            speakSentence(sentence); // Speak the sentence after typing
-                            sentenceIndex++;
-                            setTimeout(typeSentence, 500); // Move to next sentence after a short delay
-                        }
-                    }
-    
-                    typeChar(); // Start typing the sentence
-                }
-            }
-    
-            typeSentence(); // Start the typing process
-        }
-    
-        function startCountdown() {
-            document.querySelector('.click-me').style.display = 'none';
-            let countdownElement = document.getElementById('countdown');
-            countdownElement.style.display = 'block';
-            let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
-            let i = 0;
-    
-            function updateCountdown() {
-                if (i < countdownNumbers.length) {
-                    countdownElement.innerHTML = countdownNumbers[i];
-                    i++;
-                    setTimeout(updateCountdown, 1000);
-                } else {
-                    countdownElement.style.display = 'none';
-                    openEnvelope();
-                }
-            }
-            updateCountdown();
-        }
-    
-        function openEnvelope() {
-            let container = document.querySelector('.container');
-            let music = document.getElementById('loveSong');
-            let videoContainer = document.getElementById('videoContainer');
-            let video = document.getElementById('video');
-    
-            if (!container.classList.contains('open')) {
-                container.classList.add('open');
-                setTimeout(startHeartFlow, 500); // Start floating hearts
-                setTimeout(typeLetter, 500); // Start typing the letter text
-                videoContainer.style.opacity = "1";
-                video.play();
-                music.play().catch(error => console.log("Autoplay blocked: ", error));
+         function startCountdown() {
+        document.querySelector('.click-me').style.display = 'none';
+        let countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block';
+        let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
+        let i = 0;
+
+        function updateCountdown() {
+            if (i < countdownNumbers.length) {
+                countdownElement.innerHTML = countdownNumbers[i];
+                i++;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownElement.style.display = 'none';
+                openEnvelope();
             }
         }
+        updateCountdown();
+    }
+
+    function openEnvelope() {
+        let container = document.querySelector('.container');
+        let videoContainer = document.getElementById('videoContainer');
+        let video = document.getElementById('video');
+
+        // Get both audio elements
+        let loveSong = document.getElementById('loveSong');
+        let music1 = document.getElementById('music1');
+
+        if (!container.classList.contains('open')) {
+            container.classList.add('open');
+            setTimeout(startHeartFlow, 500); // Start floating hearts
+            setTimeout(typeLetter, 500); // Start typing the letter text
+            videoContainer.style.opacity = "1";
+            video.play();
+
+            // Play both music files
+            loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
+            music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
+        }
+    }
+
+    function startHeartFlow() {
+        setInterval(createHeart, 200);
+    }
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        document.getElementById("heartContainer").appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+
+    function typeLetter() {
+        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
+
+        let letterDiv = document.getElementById("letterText");
+        letterDiv.innerHTML = "";
+        let charIndex = 0;
+
+        // Get both audio elements
+        let loveSong = document.getElementById('loveSong');
+        let music1 = document.getElementById('music1');
+
+        // Start playing both music files when typing begins
+        loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
+        music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
+
+        function typeChar() {
+            if (charIndex < text.length) {
+                letterDiv.innerHTML += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50); // Typing speed
+            }
+        }
+        typeChar();
+    }
     </script>
 </body>
