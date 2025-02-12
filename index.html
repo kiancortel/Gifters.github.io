@@ -1938,7 +1938,7 @@ body {
             setInterval(createHeart, 200);
         }
     
-       let text = `Bossing,
+let text = `Bossing,
 
 Grabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.
 
@@ -1950,27 +1950,47 @@ Maraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na 
 
 From: Your Bossing K`;
 
-let sentences = text.split(/(\.|\?|!)/g); // Split text while keeping punctuation
+let sentences = text.split(/(?<=[.?!])\s+/g); // Split by sentence, keeping punctuation
 
-function speakSentence(sentence) {
-    const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "fil-PH"; // Set the language to Filipino (Tagalog)
-    utterance.pitch = 1.2; // Slightly higher pitch
-    utterance.rate = 0.9; // Slightly slower rate
-    utterance.volume = 1; // Max volume
+function getFilipinoVoice() {
+    return new Promise(resolve => {
+        speechSynthesis.onvoiceschanged = () => {
+            let voices = speechSynthesis.getVoices();
+            let filipinoVoice = voices.find(voice => 
+                voice.lang.includes("fil") || voice.lang.includes("tl") || voice.name.includes("Tagalog")
+            );
 
-    // Wait for voices to be available
-    let voices = speechSynthesis.getVoices();
-    let filipinoVoice = voices.find(voice => voice.lang.startsWith("fil") || voice.name.includes("Tagalog"));
-
-    if (filipinoVoice) {
-        utterance.voice = filipinoVoice;
-    } else {
-        console.warn("Filipino voice not found! Using default voice.");
-    }
-
-    speechSynthesis.speak(utterance);
+            if (filipinoVoice) {
+                resolve(filipinoVoice);
+            } else {
+                resolve(null); // No Filipino voice found
+            }
+        };
+        speechSynthesis.getVoices(); // Trigger loading of voices
+    });
 }
+
+async function speakText() {
+    let filipinoVoice = await getFilipinoVoice();
+
+    for (let sentence of sentences) {
+        let utterance = new SpeechSynthesisUtterance(sentence);
+        utterance.lang = filipinoVoice ? filipinoVoice.lang : "en-US"; // Default to English if no Tagalog voice
+        utterance.pitch = 1.1;
+        utterance.rate = 0.9;
+        utterance.volume = 1;
+        
+        if (filipinoVoice) {
+            utterance.voice = filipinoVoice;
+        } else {
+            console.warn("No Filipino voice found! Using default voice.");
+        }
+
+        speechSynthesis.speak(utterance);
+    }
+}
+
+speakText();
 
 // Ensure voices are loaded before speaking
 function speakText() {
