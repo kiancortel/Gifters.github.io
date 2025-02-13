@@ -1919,20 +1919,24 @@ body {
     </div>
 
     <script>
+   // Function to check if it's a desktop screen
 function isDesktop() {
-    return window.innerWidth > 768;
+    return window.innerWidth > 768; // Only run on screens larger than 768px
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    if (isDesktop()) {
-        function adjustLayout() {
-            document.body.style.fontSize = "20px";
-            document.body.style.padding = "20px";
-            document.body.style.backgroundColor = "#ffffff";
-        }
+if (isDesktop()) {
+    function adjustLayout() {
+        document.body.style.fontSize = "20px";
+        document.body.style.padding = "20px";
+        document.body.style.backgroundColor = "#ffffff";
+    }
 
-        adjustLayout();
-        window.addEventListener("resize", adjustLayout);
+    // Run on load
+    adjustLayout();
+
+    // Run on resize
+    window.addEventListener("resize", adjustLayout);
+
     function bloomFlower() {
         if (document.body.classList.contains('not-loaded')) {
             document.body.classList.remove("not-loaded");
@@ -2022,18 +2026,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         typeChar();
     }
- } else {
-        document.body.innerHTML = `<div style='text-align:center; margin-top:20%;'>
-            <h2 style='font-size:24px;'>🎁 Tap to reveal your gift! 🎁</h2>
-            <div id='mobileGift' style='margin: 20px auto; padding: 20px; background: pink; border-radius: 10px; cursor: pointer;'>
-                <h3>🎀 Surprise! 🎀</h3>
-            </div>
-        </div>`;
-        document.getElementById("mobileGift").addEventListener("click", function() {
-            this.innerHTML = "<h2>❌ Please use a desktop or laptop to get the full experience! ❌</h2>";
-        });
-    }
-});
-
+} else {
+    // Disable content for mobile users
+    document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%; font-size:24px;'>Sorry, this experience is only available on desktop.</h2>";
+}
     </script>
 </body>
