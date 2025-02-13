@@ -1919,7 +1919,7 @@ body {
     </div>
 
     <script>
- // Function to check if it's a desktop screen
+// Function to check if it's a desktop screen
 function isDesktop() {
     return window.innerWidth > 768; // Only run on screens larger than 768px
 }
@@ -1937,17 +1937,8 @@ if (isDesktop()) {
     // Run on resize
     window.addEventListener("resize", adjustLayout);
 
-    function bloomFlower() {
-        if (document.body.classList.contains('not-loaded')) {
-            document.body.classList.remove("not-loaded");
-            document.querySelector('.reloadBtn').textContent = 'Reload Page';
-        } else {
-            location.reload();
-        }
-    }
-
     function startCountdown() {
-        document.querySelector('.click-me').style.display = 'none';
+        document.querySelector('.gift-box').style.display = 'none';
         let countdownElement = document.getElementById('countdown');
         countdownElement.style.display = 'block';
         let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
@@ -1967,39 +1958,10 @@ if (isDesktop()) {
     }
 
     function openEnvelope() {
-        let container = document.querySelector('.container');
-        let videoContainer = document.getElementById('videoContainer');
-        let video = document.getElementById('video');
-
-        // Get both audio elements
-        let loveSong = document.getElementById('loveSong');
-        let music1 = document.getElementById('music1');
-
-        if (!container.classList.contains('open')) {
-            container.classList.add('open');
-            setTimeout(startHeartFlow, 500);
-            setTimeout(typeLetter, 500);
-            videoContainer.style.opacity = "1";
-            video.play();
-
-            // Play both music files
-            loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
-            music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
-        }
-    }
-
-    function startHeartFlow() {
-        setInterval(createHeart, 200);
-    }
-
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-        document.getElementById("heartContainer").appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+        let letterContainer = document.getElementById('letterContainer');
+        letterContainer.style.display = 'block';
+        letterContainer.classList.add('show');
+        typeLetter();
     }
 
     function typeLetter() {
@@ -2009,25 +1971,48 @@ if (isDesktop()) {
         letterDiv.innerHTML = "";
         let charIndex = 0;
 
-        // Get both audio elements
-        let loveSong = document.getElementById('loveSong');
-        let music1 = document.getElementById('music1');
-
-        // Start playing both music files when typing begins
-        loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
-        music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
-
         function typeChar() {
             if (charIndex < text.length) {
                 letterDiv.innerHTML += text.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeChar, 50); // Typing speed
+                setTimeout(typeChar, 50);
             }
         }
         typeChar();
     }
+
+    document.body.innerHTML = `
+        <div class='gift-box' onclick='startCountdown()'>🎁</div>
+        <div id='countdown' style='display:none; font-size: 30px; text-align: center; margin-top: 20px;'></div>
+        <div id='letterContainer' class='hidden'><p id='letterText'></p></div>
+        <style>
+            .gift-box {
+                width: 150px;
+                height: 150px;
+                font-size: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg);
+                cursor: pointer;
+                animation: float 3s ease-in-out infinite;
+                text-shadow: 0px 0px 20px yellow;
+            }
+            @keyframes float {
+                0% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg) translateY(0px); }
+                50% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg) translateY(-10px); }
+                100% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(20deg) translateY(0px); }
+            }
+            .hidden { display: none; }
+            .show { display: block; font-size: 20px; text-align: center; animation: fadeIn 1s ease-in-out; }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        </style>
+    `;
 } else {
-    document.body.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;'><div style='width:100px; height:100px; background:#f0c14b; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer;' onclick='alert(\"Please use a desktop or laptop to see the gift\");'>🎁</div><p style='margin-top:20px; font-size:20px;'>Please use a desktop or laptop to see the gift.</p></div>";
+    document.body.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;'><div class='gift-box' onclick='alert(\"Please use a desktop or laptop to see the gift\");'>🎁</div><p style='margin-top:20px; font-size:20px;'>Please use a desktop or laptop to see the gift.</p></div>";
 }
 
     </script>
