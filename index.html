@@ -1575,6 +1575,11 @@ body {
 .not-loaded * {
   animation-play-state: paused !important;
 }
+            @keyframes glow {
+                0% { transform: scale(1); opacity: 0.8; }
+                100% { transform: scale(1.2); opacity: 1; }
+            }
+        
 
 </style>
 
@@ -1919,7 +1924,8 @@ body {
     </div>
 
     <script>
-  function isDesktop() {
+ // Function to check if it's a desktop screen
+function isDesktop() {
     return window.innerWidth > 768; // Only run on screens larger than 768px
 }
 
@@ -1930,7 +1936,10 @@ if (isDesktop()) {
         document.body.style.backgroundColor = "#ffffff";
     }
 
+    // Run on load
     adjustLayout();
+
+    // Run on resize
     window.addEventListener("resize", adjustLayout);
 
     function bloomFlower() {
@@ -1966,6 +1975,8 @@ if (isDesktop()) {
         let container = document.querySelector('.container');
         let videoContainer = document.getElementById('videoContainer');
         let video = document.getElementById('video');
+
+        // Get both audio elements
         let loveSong = document.getElementById('loveSong');
         let music1 = document.getElementById('music1');
 
@@ -1975,6 +1986,8 @@ if (isDesktop()) {
             setTimeout(typeLetter, 500);
             videoContainer.style.opacity = "1";
             video.play();
+
+            // Play both music files
             loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
             music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
         }
@@ -1997,13 +2010,15 @@ if (isDesktop()) {
     function typeLetter() {
         let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
 
-
         let letterDiv = document.getElementById("letterText");
         letterDiv.innerHTML = "";
         let charIndex = 0;
+
+        // Get both audio elements
         let loveSong = document.getElementById('loveSong');
         let music1 = document.getElementById('music1');
 
+        // Start playing both music files when typing begins
         loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
         music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
 
@@ -2011,36 +2026,21 @@ if (isDesktop()) {
             if (charIndex < text.length) {
                 letterDiv.innerHTML += text.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeChar, 50);
+                setTimeout(typeChar, 50); // Typing speed
             }
         }
         typeChar();
     }
 } else {
-    document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%; font-size:24px;'>Sorry, this experience is only available on desktop.</h2>";
-    
-    let giftBox = document.createElement("div");
-    giftBox.innerHTML = "🎁";
-    giftBox.style.position = "fixed";
-    giftBox.style.bottom = "20px";
-    giftBox.style.right = "20px";
-    giftBox.style.fontSize = "100px";
-    giftBox.style.cursor = "pointer";
-    giftBox.style.animation = "glow 1.5s infinite alternate";
-    document.body.appendChild(giftBox);
-
-    let style = document.createElement("style");
-    style.innerHTML = `
-        @keyframes glow {
-            0% { transform: scale(1); text-shadow: 0 0 10px yellow; }
-            100% { transform: scale(1.1); text-shadow: 0 0 20px gold; }
-        }
+    // Show message and floating gift on mobile
+    document.body.innerHTML = `
+        <div style='text-align:center; margin-top:20%; font-size:24px;'>
+            <div style='position: relative;'>
+                <img src='gift.png' alt='Gift' style='width:100px; animation: glow 1.5s infinite alternate;'/>
+            </div>
+            <p>Please open on a desktop or laptop to see the gift.</p>
+        </div>
     `;
-    document.head.appendChild(style);
-
-    giftBox.addEventListener("click", function() {
-        alert("Please open this experience on a desktop or laptop to see the full gift!");
-    });
 }
 
 
