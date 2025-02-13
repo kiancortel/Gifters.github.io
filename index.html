@@ -1919,7 +1919,7 @@ body {
     </div>
 
     <script>
-  function isDesktop() {
+function isDesktop() {
     return window.innerWidth > 768;
 }
 
@@ -1933,92 +1933,96 @@ document.addEventListener("DOMContentLoaded", function() {
 
         adjustLayout();
         window.addEventListener("resize", adjustLayout);
+    function bloomFlower() {
+        if (document.body.classList.contains('not-loaded')) {
+            document.body.classList.remove("not-loaded");
+            document.querySelector('.reloadBtn').textContent = 'Reload Page';
+        } else {
+            location.reload();
+        }
+    }
 
-        function bloomFlower() {
-            if (document.body.classList.contains('not-loaded')) {
-                document.body.classList.remove("not-loaded");
-                document.querySelector('.reloadBtn').textContent = 'Reload Page';
+    function startCountdown() {
+        document.querySelector('.click-me').style.display = 'none';
+        let countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block';
+        let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
+        let i = 0;
+
+        function updateCountdown() {
+            if (i < countdownNumbers.length) {
+                countdownElement.innerHTML = countdownNumbers[i];
+                i++;
+                setTimeout(updateCountdown, 1000);
             } else {
-                location.reload();
+                countdownElement.style.display = 'none';
+                openEnvelope();
             }
         }
+        updateCountdown();
+    }
 
-        function startCountdown() {
-            document.querySelector('.click-me').style.display = 'none';
-            let countdownElement = document.getElementById('countdown');
-            countdownElement.style.display = 'block';
-            let countdownNumbers = ["5", "4", "3", "2", "1", "Are you ready bossing?"];
-            let i = 0;
+    function openEnvelope() {
+        let container = document.querySelector('.container');
+        let videoContainer = document.getElementById('videoContainer');
+        let video = document.getElementById('video');
 
-            function updateCountdown() {
-                if (i < countdownNumbers.length) {
-                    countdownElement.innerHTML = countdownNumbers[i];
-                    i++;
-                    setTimeout(updateCountdown, 1000);
-                } else {
-                    countdownElement.style.display = 'none';
-                    openEnvelope();
-                }
-            }
-            updateCountdown();
-        }
+        // Get both audio elements
+        let loveSong = document.getElementById('loveSong');
+        let music1 = document.getElementById('music1');
 
-        function openEnvelope() {
-            let container = document.querySelector('.container');
-            let videoContainer = document.getElementById('videoContainer');
-            let video = document.getElementById('video');
-            let loveSong = document.getElementById('loveSong');
-            let music1 = document.getElementById('music1');
+        if (!container.classList.contains('open')) {
+            container.classList.add('open');
+            setTimeout(startHeartFlow, 500);
+            setTimeout(typeLetter, 500);
+            videoContainer.style.opacity = "1";
+            video.play();
 
-            if (!container.classList.contains('open')) {
-                container.classList.add('open');
-                setTimeout(startHeartFlow, 500);
-                setTimeout(typeLetter, 500);
-                videoContainer.style.opacity = "1";
-                video.play();
-
-                loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
-                music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
-            }
-        }
-
-        function startHeartFlow() {
-            setInterval(createHeart, 200);
-        }
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-            document.getElementById("heartContainer").appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-
-        function typeLetter() {
-            let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
-
-            let letterDiv = document.getElementById("letterText");
-            letterDiv.innerHTML = "";
-            let charIndex = 0;
-
-            let loveSong = document.getElementById('loveSong');
-            let music1 = document.getElementById('music1');
-
+            // Play both music files
             loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
             music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
-
-            function typeChar() {
-                if (charIndex < text.length) {
-                    letterDiv.innerHTML += text.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeChar, 50);
-                }
-            }
-            typeChar();
         }
-    } else {
+    }
+
+    function startHeartFlow() {
+        setInterval(createHeart, 200);
+    }
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        document.getElementById("heartContainer").appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+
+    function typeLetter() {
+        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
+
+        let letterDiv = document.getElementById("letterText");
+        letterDiv.innerHTML = "";
+        let charIndex = 0;
+
+        // Get both audio elements
+        let loveSong = document.getElementById('loveSong');
+        let music1 = document.getElementById('music1');
+
+        // Start playing both music files when typing begins
+        loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
+        music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
+
+        function typeChar() {
+            if (charIndex < text.length) {
+                letterDiv.innerHTML += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeChar, 50); // Typing speed
+            }
+        }
+        typeChar();
+    }
+ } else {
         document.body.innerHTML = `<div style='text-align:center; margin-top:20%;'>
             <h2 style='font-size:24px;'>🎁 Tap to reveal your gift! 🎁</h2>
             <div id='mobileGift' style='margin: 20px auto; padding: 20px; background: pink; border-radius: 10px; cursor: pointer;'>
