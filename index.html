@@ -1919,7 +1919,7 @@ body {
     </div>
 
     <script>
-   // Function to check if it's a desktop screen
+ // Function to check if it's a desktop screen
 function isDesktop() {
     return window.innerWidth > 768; // Only run on screens larger than 768px
 }
@@ -2027,8 +2027,8 @@ if (isDesktop()) {
         typeChar();
     }
 } else {
-    // Disable content for mobile users
-    document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%; font-size:24px;'>Sorry, this experience is only available on desktop.</h2>";
+    document.body.innerHTML = "<div style='display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;'><div style='width:100px; height:100px; background:#f0c14b; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer;' onclick='alert(\"Please use a desktop or laptop to see the gift\");'>🎁</div><p style='margin-top:20px; font-size:20px;'>Please use a desktop or laptop to see the gift.</p></div>";
 }
+
     </script>
 </body>
