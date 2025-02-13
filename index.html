@@ -2029,17 +2029,24 @@ if (isDesktop()) {
 } else {
    document.body.innerHTML = `
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; color: red;">
-            <div style="position: relative; animation: glow 1.5s infinite alternate; font-size: 50px;">
+            <div style="position: relative; font-size: 100px; animation: float 3s ease-in-out infinite, glow 1.5s infinite alternate;">
                 🎁
             </div>
             <p style="margin-top: 20px; font-size: 24px; font-weight: bold;">Please use a desktop or laptop to see what's inside!</p>
         </div>
         <style>
+            @keyframes float {
+                0% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0); }
+            }
+
             @keyframes glow {
-                0% { transform: scale(1); text-shadow: 0 0 5px red; }
-                100% { transform: scale(1.2); text-shadow: 0 0 20px red; }
+                0% { text-shadow: 0 0 10px red; }
+                100% { text-shadow: 0 0 30px red; }
             }
         </style>`;
 }
+
    </script>
 </body>
