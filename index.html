@@ -1924,7 +1924,7 @@ body {
     </div>
 
     <script>
- // Function to check if it's a desktop screen
+  // Function to check if it's a desktop screen
 function isDesktop() {
     return window.innerWidth > 768; // Only run on screens larger than 768px
 }
@@ -1976,7 +1976,6 @@ if (isDesktop()) {
         let videoContainer = document.getElementById('videoContainer');
         let video = document.getElementById('video');
 
-        // Get both audio elements
         let loveSong = document.getElementById('loveSong');
         let music1 = document.getElementById('music1');
 
@@ -1987,7 +1986,6 @@ if (isDesktop()) {
             videoContainer.style.opacity = "1";
             video.play();
 
-            // Play both music files
             loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
             music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
         }
@@ -2008,17 +2006,14 @@ if (isDesktop()) {
     }
 
     function typeLetter() {
-        let text = "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
-
+        let text =  "Bossing,\n\nGrabe, hindi ko talaga in-expect na magiging ganito tayo. Dati parang ang layo mo, bihira lang tayo mag-usap, at akala ko hanggang doon na lang. Pero sino bang mag-aakala na ang simpleng kamustahan, kulitan, at tawanan natin ay magiging parte na ng araw-araw ko? Sobrang saya lang isipin na may isang taong tulad mo na pumasok sa buhay ko sa hindi ko inaasahang paraan.\n\nAlam mo, bossing, hindi lang basta simpleng connection ‘to para sa akin. Iba yung saya na nadadala mo, yung comfort sa kahit anong pag-uusap natin, at yung feeling na may isang taong nandyan lang, hindi man palaging nag-uusap pero alam kong solid. Sana marami pa tayong moments na magawa, marami pang memories na bubuuin, at mas mapatatag pa natin kung anong meron tayo.\n\nTiwala lang tayo sa isa’t isa, bossing. Sana hindi ka magbago, kasi kung anong meron ngayon, sobrang saya na. Hindi ko alam kung paano ko to mas ipapaliwanag, pero gusto ko lang sabihin na sobrang thankful ako na andito ka. At kahit anong mangyari, solid tayo.\n\nMaraming salamat sa lahat, bossing. Na-appreciate ko lahat ng effort mo lalo na sa pag-update mo. Sana tuloy-tuloy lang tayo sa paggawa ng memories na worth it alalahanin balang araw.\n\nFrom: Your Bossing K";
         let letterDiv = document.getElementById("letterText");
         letterDiv.innerHTML = "";
         let charIndex = 0;
 
-        // Get both audio elements
         let loveSong = document.getElementById('loveSong');
         let music1 = document.getElementById('music1');
 
-        // Start playing both music files when typing begins
         loveSong.play().catch(error => console.log("Autoplay blocked for loveSong: ", error));
         music1.play().catch(error => console.log("Autoplay blocked for music1: ", error));
 
@@ -2026,23 +2021,27 @@ if (isDesktop()) {
             if (charIndex < text.length) {
                 letterDiv.innerHTML += text.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeChar, 50); // Typing speed
+                setTimeout(typeChar, 50);
             }
         }
         typeChar();
     }
 } else {
-    // Show message and floating gift on mobile
     document.body.innerHTML = `
-        <div style='text-align:center; margin-top:20%; font-size:24px;'>
-            <div style='position: relative;'>
-                <img src='gift.png' alt='Gift' style='width:100px; animation: glow 1.5s infinite alternate;'/>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+            <div style="position: relative; animation: glow 1.5s infinite alternate;">
+                🎁
             </div>
-            <p>Please open on a desktop or laptop to see the gift.</p>
+            <p style="margin-top: 20px; font-size: 20px; font-weight: bold;">Please use a desktop or laptop to see what's inside!</p>
         </div>
+        <style>
+            @keyframes glow {
+                0% { transform: scale(1); text-shadow: 0 0 5px gold; }
+                100% { transform: scale(1.2); text-shadow: 0 0 20px gold; }
+            }
+        </style>
     `;
 }
-
 
     </script>
 </body>
